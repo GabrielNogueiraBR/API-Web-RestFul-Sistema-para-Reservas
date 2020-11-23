@@ -18,9 +18,10 @@ public class VeiculoRepository {
      * @param veiculo a ser salvo.
      * @return {@code true}
      */
-    public Boolean adicionaVeiculo(Veiculo veiculo){
+    public Veiculo adicionaVeiculo(Veiculo veiculo){
         veiculo.setCodigo(nextCodigo++);
-        return veiculos.add(veiculo);
+        veiculos.add(veiculo);
+        return veiculo;
     }
 
     /**

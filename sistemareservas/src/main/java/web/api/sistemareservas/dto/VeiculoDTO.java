@@ -1,7 +1,7 @@
 package web.api.sistemareservas.dto;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -12,7 +12,7 @@ public class VeiculoDTO {
     private String modelo;
 
     @NotBlank(message = "O valor da diária é obrigatório!")
-    @DecimalMin()
+    @Positive(message = "O valor da diária deve ser um valor positivo maior que zero.")
     private double valorDiaria;
 
     public String getModelo() {

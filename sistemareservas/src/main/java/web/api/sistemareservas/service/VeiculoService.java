@@ -44,9 +44,9 @@ public class VeiculoService {
         return dto;
     }
 
-    public Boolean adicionaVeiculo(VeiculoDTO dto){
-        Veiculo veiculo = fromDTO(dto);
-        return repository.adicionaVeiculo(veiculo);
+    public Veiculo adicionaVeiculo(Veiculo veiculo){
+        repository.adicionaVeiculo(veiculo);
+        return veiculo;
     }
 
     public Boolean removeVeiculoByCodigo(int codigo){
