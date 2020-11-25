@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SistemareservasApplication<sistemareservas>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "web.api.sistemareservas.SistemareservasApplication",
+            "projectName": "sistemareservas",
+            "args": ""
+        }
+    ]
+}
