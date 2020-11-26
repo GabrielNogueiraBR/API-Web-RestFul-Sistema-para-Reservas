@@ -55,9 +55,7 @@ public class VeiculoController {
     
     @PutMapping("{codigo}")
     public ResponseEntity<Veiculo> atualizar(@PathVariable int codigo, @Valid @RequestBody VeiculoDTO dto){
-        Veiculo veiculo = veiculoService.fromDTO(dto);
-        veiculo.setCodigo(codigo);
-        veiculo = veiculoService.adicionaVeiculo(veiculo);
+        Veiculo veiculo = veiculoService.atualizaVeiculo(codigo,dto);
         return ResponseEntity.ok(veiculo);
     }
 
