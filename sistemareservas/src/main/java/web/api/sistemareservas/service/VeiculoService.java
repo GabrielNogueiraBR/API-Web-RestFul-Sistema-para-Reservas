@@ -55,6 +55,10 @@ public class VeiculoService {
     }
 
     public Veiculo atualizaVeiculo(int codigo, VeiculoDTO dto){
+        
+        // Tem o veiculo com esse codigo? Caso contrario lança o 404
+        getVeiculoByCodigo(codigo);
+
         Veiculo veiculo = fromDTO(dto);
         veiculo.setCodigo(codigo);
         return repository.updateVeiculo(veiculo);

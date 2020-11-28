@@ -11,7 +11,6 @@ public class VeiculoDTO {
     @Length(min = 4, max = 60, message = "O modelo deve ter no mínimo 4 até 60 caracteres.")
     private String modelo;
 
-    @NotBlank(message = "O valor da diária é obrigatório!")
     @Positive(message = "O valor da diária deve ser um valor positivo maior que zero.")
     private double valorDiaria;
 

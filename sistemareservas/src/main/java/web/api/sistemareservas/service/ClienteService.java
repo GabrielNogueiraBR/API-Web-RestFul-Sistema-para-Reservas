@@ -42,6 +42,10 @@ public class ClienteService {
     }
 
     public Cliente atualizaCliente(int codigo, ClienteDTO dto){
+        
+        //Tem um cliente? Caso contrario lança o 404
+        getClienteByCodigo(codigo);
+        
         Cliente cliente = fromDTO(dto);
         cliente.setCodigo(codigo);
         return repository.updateCliente(cliente);
