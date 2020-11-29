@@ -8,9 +8,7 @@ import java.time.temporal.ChronoUnit;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.Negative;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 

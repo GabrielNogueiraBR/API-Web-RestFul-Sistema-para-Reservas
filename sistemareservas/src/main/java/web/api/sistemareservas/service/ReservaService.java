@@ -1,8 +1,6 @@
 package web.api.sistemareservas.service;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,8 +78,6 @@ public class ReservaService {
                 dataFinalJaReservada = reservaJaCadastrada.getDataFinal();
                 dataInicialReservaAtual = reserva.getDataInicio();
                 dataFinalReservaAtual = reserva.getDataFinal();            
-
-                var dias = Period.between(dataInicialJaReservada, dataFinalJaReservada).getDays();
 
                 if(dataInicialReservaAtual.isAfter(dataInicialJaReservada) 
                     && dataInicialReservaAtual.isBefore(dataFinalJaReservada) 
