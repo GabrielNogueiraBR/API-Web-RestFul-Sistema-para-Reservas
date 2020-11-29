@@ -3,11 +3,11 @@ package web.api.sistemareservas.controller;
 import java.net.URI;
 import java.util.List;
 
-import javax.print.DocFlavor.READER;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,10 +75,18 @@ public class ClienteController {
     }
 
     @PostMapping("/{codigoCliente}/veiculos/{codigoVeiculo}")
-    public ResponseEntity<Void> salvarReserva(@Valid @RequestBody ReservaDTO dto, HttpServletRequest request, UriComponentsBuilder builder, @PathVariable int codigoCliente, @PathVariable int codigoVeiculo){
+    public ResponseEntity<String> salvarReserva(@Valid @RequestBody ReservaDTO dto, HttpServletRequest request, UriComponentsBuilder builder, @PathVariable int codigoCliente, @PathVariable int codigoVeiculo){
 
         Reserva reserva = reservaService.fromDTO(dto, codigoCliente, codigoVeiculo);
+        if(reserva == null)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Esse periodo de data ja foi reservado para um outro cliente!");
 
+        reserva = reservaService.adicionReserva(reserva);
+
+        UriComponents uriComponents = builder.path(request.getRequestURI() + "/" + reserva.getCodigo()).build();
+        URI uri = uriComponents.toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
 }

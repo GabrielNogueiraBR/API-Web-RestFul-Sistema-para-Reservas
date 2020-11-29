@@ -1,7 +1,5 @@
 package web.api.sistemareservas.model;
 
-import java.time.LocalDate;
-
 public class Veiculo {
     private int codigo;
     private String modelo;

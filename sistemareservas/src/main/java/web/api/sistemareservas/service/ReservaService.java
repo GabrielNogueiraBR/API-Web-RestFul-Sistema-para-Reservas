@@ -1,5 +1,8 @@
 package web.api.sistemareservas.service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,9 +60,47 @@ public class ReservaService {
         
         reserva.setDataInicio(dto.getDataInicio());
         reserva.setDataFinal(dto.getDataFinal());
-        
+        if(!verificaIntervaloDasDatas(dto, reserva))
+            return null;
+
         return reserva;
 
+    }
+
+    public Boolean verificaIntervaloDasDatas(ReservaDTO dto, Reserva reserva) {
+        var reservas = getAllReservas();
+        LocalDate dataInicialJaReservada;
+        LocalDate dataFinalJaReservada;
+        LocalDate dataInicialReservaAtual;
+        LocalDate dataFinalReservaAtual;      
+
+        for(Reserva reservaJaCadastrada : reservas){
+            if(reservaJaCadastrada.getVeiculo() == reserva.getVeiculo()){
+                dataInicialJaReservada = reservaJaCadastrada.getDataInicio();
+                dataFinalJaReservada = reservaJaCadastrada.getDataFinal();
+                dataInicialReservaAtual = reserva.getDataInicio();
+                dataFinalReservaAtual = reserva.getDataFinal();            
+
+                var dias = Period.between(dataInicialJaReservada, dataFinalJaReservada).getDays();
+
+                if(dataInicialReservaAtual.isAfter(dataInicialJaReservada) 
+                    && dataInicialReservaAtual.isBefore(dataFinalJaReservada) 
+                    || dataInicialReservaAtual.isEqual(dataInicialJaReservada)
+                    || dataInicialReservaAtual.isEqual(dataFinalJaReservada))
+                {
+                    return false;
+                }
+
+                if(dataFinalReservaAtual.isAfter(dataInicialJaReservada) 
+                    && dataFinalReservaAtual.isBefore(dataFinalJaReservada) 
+                    || dataFinalReservaAtual.isEqual(dataFinalJaReservada)
+                    || dataFinalReservaAtual.isEqual(dataInicialJaReservada))
+                {
+                    return false;                    
+                }
+            }
+        }
+        return true;
     }
 
     public ReservaDTO toDTO(Reserva reserva){

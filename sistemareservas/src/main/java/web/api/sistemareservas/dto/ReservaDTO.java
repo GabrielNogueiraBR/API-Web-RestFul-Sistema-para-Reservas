@@ -1,11 +1,14 @@
 package web.api.sistemareservas.dto;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Negative;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -19,7 +22,7 @@ public class ReservaDTO {
     private LocalDate dataInicio;
     
     @NotNull
-    @Future()
+    @Future(message = "A data final para a reserva deve ser uma data futura.")
     private LocalDate dataFinal;
 
     private VeiculoDTO veiculoDTO;
@@ -29,10 +32,12 @@ public class ReservaDTO {
      * Validação para verificar se o intervalo entre as datas é negativo ou não. Caso a data final seja antes da data de início, o valor retornado será negativo.
      * @return
      */
-    @Positive(message = "A data final deve ser maior que a data de início. Digite uma data válida.")
-    public Long diferencaDatas(){
-        long dias = ChronoUnit.DAYS.between(dataFinal, dataInicio);
-        return dias;
+    @AssertFalse(message = "A data final deve ser maior que a data de início. Digite uma data válida.")
+    public boolean isDiferencaDatasNegativo(){
+        var dias = Period.between(dataInicio, dataFinal).getDays();
+        if(dias < 0)
+            return true;
+        return false;
     }
 
     /**
@@ -40,23 +45,13 @@ public class ReservaDTO {
      * @return
      */
     @AssertFalse(message = "Erro! A data de inicio informada é em um domingo, por favor, informe outra data para realizar a reserva.")
-    public Boolean isDataInicioDomingo(){
-        
-        if(dataFinal.getDayOfWeek().getValue() == 7){
-            return true;
-        }
-        
-        return false;
+    public boolean isDataInicioDomingo(){
+        return(dataInicio.getDayOfWeek().equals(DayOfWeek.SUNDAY));
     }
 
     @AssertFalse(message = "Erro! A data informada para realizar a entrega do veiculo é em um domingo, por favor informe outra data.")
-    public Boolean isDataFinalDomingo(){
-        
-        if(dataFinal.getDayOfWeek().getValue() == 7){
-            return true;
-        }
-        
-        return false;
+    public boolean isDataFinalDomingo(){    
+        return(dataFinal.getDayOfWeek().equals(DayOfWeek.SUNDAY));
     }
 
     public LocalDate getDataInicio() {

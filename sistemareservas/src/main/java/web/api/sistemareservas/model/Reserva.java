@@ -65,7 +65,7 @@ public class Reserva {
 
     @JsonGetter
     public Double totalReserva(){
-        long dias = ChronoUnit.DAYS.between(dataFinal, dataInicio);
+        long dias = ChronoUnit.DAYS.between(dataInicio, dataFinal);
         Double total = veiculo.getValorDiaria() * dias;
         return total;
     }
