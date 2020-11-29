@@ -68,9 +68,12 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{codigo}")
-    public ResponseEntity<Void> remover(@PathVariable int codigo)
+    public ResponseEntity<String> remover(@PathVariable int codigo)
     {
-        clienteService.removeClienteByCodigo(codigo);
+        var retorno = clienteService.removeClienteByCodigo(codigo);
+        if(!retorno){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Esse cliente esta vinculado a uma reserva!");
+        }
         return ResponseEntity.noContent().build();
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import web.api.sistemareservas.dto.ClienteDTO;
 import web.api.sistemareservas.model.Cliente;
+import web.api.sistemareservas.model.Reserva;
 import web.api.sistemareservas.repository.ClienteRepository;
 
 @Service
@@ -17,6 +18,9 @@ public class ClienteService {
     
     @Autowired
     private ClienteRepository repository;
+
+    @Autowired
+    private ReservaService reservaService;
 
     public List<Cliente> getAllClientes(){
         return repository.getAllClientes();
@@ -61,9 +65,13 @@ public class ClienteService {
 
     public Boolean removeClienteByCodigo(int codigo) {
         Cliente cliente = getClienteByCodigo(codigo);
+        
+        var reservas = reservaService.getAllReservas();
+        for(Reserva reserva : reservas){
+            if(reserva.getCliente() == cliente){
+                return false;
+            }
+        }
         return repository.removeCliente(cliente);
     }
-
-
-
 }
