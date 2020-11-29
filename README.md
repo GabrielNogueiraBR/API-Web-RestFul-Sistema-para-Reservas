@@ -25,7 +25,6 @@ Desenvolva uma aplicação do tipo API Web RestFul que permita gerenciar reserva
 
 
 ## To do list
-    - [ ] Adicionar validações
-    - 
-
-
+    - Não remover Cliente se ele tiver reservas ativas
+    - Não remover Veiculos se ele tiver reservas ativas
+    - Não reservar um carro no período que ele já estiver reservado

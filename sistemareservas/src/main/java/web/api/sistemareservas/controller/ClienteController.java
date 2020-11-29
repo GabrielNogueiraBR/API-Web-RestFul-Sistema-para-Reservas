@@ -3,6 +3,7 @@ package web.api.sistemareservas.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.print.DocFlavor.READER;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -20,8 +21,11 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import web.api.sistemareservas.dto.ClienteDTO;
+import web.api.sistemareservas.dto.ReservaDTO;
 import web.api.sistemareservas.model.Cliente;
+import web.api.sistemareservas.model.Reserva;
 import web.api.sistemareservas.service.ClienteService;
+import web.api.sistemareservas.service.ReservaService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -29,6 +33,9 @@ public class ClienteController {
     
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private ReservaService reservaService;
 
     @GetMapping
     public List<Cliente> getClientes(){
@@ -66,4 +73,12 @@ public class ClienteController {
         clienteService.removeClienteByCodigo(codigo);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{codigoCliente}/veiculos/{codigoVeiculo}")
+    public ResponseEntity<Void> salvarReserva(@Valid @RequestBody ReservaDTO dto, HttpServletRequest request, UriComponentsBuilder builder, @PathVariable int codigoCliente, @PathVariable int codigoVeiculo){
+
+        Reserva reserva = reservaService.fromDTO(dto, codigoCliente, codigoVeiculo);
+
+    }
+
 }

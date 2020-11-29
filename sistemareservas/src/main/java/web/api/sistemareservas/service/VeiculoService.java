@@ -45,8 +45,7 @@ public class VeiculoService {
     }
 
     public Veiculo adicionaVeiculo(Veiculo veiculo){
-        repository.adicionaVeiculo(veiculo);
-        return veiculo;
+        return repository.adicionaVeiculo(veiculo);
     }
 
     public Boolean removeVeiculoByCodigo(int codigo){

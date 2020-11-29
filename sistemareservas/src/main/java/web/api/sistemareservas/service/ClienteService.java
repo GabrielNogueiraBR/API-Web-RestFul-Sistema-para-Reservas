@@ -41,6 +41,14 @@ public class ClienteService {
         return cliente;
     }
 
+    public ClienteDTO toDTO(Cliente cliente){
+        ClienteDTO dto = new ClienteDTO();
+        dto.setCpf(cliente.getCpf());
+        dto.setEndereco(cliente.getEndereco());
+        dto.setNome(cliente.getNome());
+        return dto;
+    }
+
     public Cliente atualizaCliente(int codigo, ClienteDTO dto){
         
         //Tem um cliente? Caso contrario lança o 404

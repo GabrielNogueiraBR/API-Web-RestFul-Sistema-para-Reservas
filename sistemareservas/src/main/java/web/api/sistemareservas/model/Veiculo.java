@@ -1,9 +1,20 @@
 package web.api.sistemareservas.model;
 
+import java.time.LocalDate;
+
 public class Veiculo {
     private int codigo;
     private String modelo;
     private double valorDiaria;
+    
+    public Veiculo() {
+    }
+    
+    public Veiculo(int codigo, String modelo, double valorDiaria) {
+        this.codigo = codigo;
+        this.modelo = modelo;
+        this.valorDiaria = valorDiaria;
+    }
 
     public int getCodigo() {
         return codigo;
