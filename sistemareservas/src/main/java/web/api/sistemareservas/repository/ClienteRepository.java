@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import web.api.sistemareservas.model.Cliente;
+import web.api.sistemareservas.model.Reserva;
 
 @Component
 public class ClienteRepository {
@@ -45,5 +46,10 @@ public class ClienteRepository {
             clientes.set(posicaoNaLista, nCliente);
         }
         return nCliente;
+    }
+
+    public Boolean adicionaReservaOnCliente(int codigo, Reserva reserva){
+        Cliente cliente = getClienteByCodigo(codigo).get();
+        return cliente.adicionaReserva(reserva);
     }
 }
