@@ -92,4 +92,12 @@ public class ClienteController {
         return ResponseEntity.created(uri).build();
     }
 
+    @GetMapping("/{codigo}/reservas")
+    public List<Reserva> getAllReservasByCodigoCliente(@PathVariable int codigo){
+        
+        return clienteService.getAllReservasByCodigoCliente(codigo);
+
+    }
+
+
 }

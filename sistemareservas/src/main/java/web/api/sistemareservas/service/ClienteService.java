@@ -76,4 +76,14 @@ public class ClienteService {
         }
         return repository.removeCliente(cliente);
     }
+
+    public Boolean adicionaReservaOnCliente(int codigo, Reserva reserva){
+        return adicionaReservaOnCliente(codigo, reserva);
+    }
+
+	public List<Reserva> getAllReservasByCodigoCliente(int codigo) {
+        Cliente cliente = getClienteByCodigo(codigo);
+        var reservas = cliente.getReservas();
+        return reservas;
+	}
 }
