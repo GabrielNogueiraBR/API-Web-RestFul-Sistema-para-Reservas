@@ -1,9 +1,12 @@
 package web.api.sistemareservas.model;
 
+import java.util.List;
+
 public class Veiculo {
     private int codigo;
     private String modelo;
     private double valorDiaria;
+    private List<Reserva> reservas;
     
     public Veiculo() {
     }
@@ -36,5 +39,17 @@ public class Veiculo {
 
     public void setValorDiaria(double valorDiaria) {
         this.valorDiaria = valorDiaria;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    public Boolean adicionaReserva(Reserva reserva){
+        return this.reservas.add(reserva);
     }
 }

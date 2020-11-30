@@ -77,4 +77,10 @@ public class VeiculoService {
         return repository.updateVeiculo(veiculo);
     }
 
+	public Boolean adicionaReservaOnVeiculo(int codigo, Reserva reserva) {
+
+        return repository.adicionaReservaOnVeiculo(codigo,reserva);
+
+	}
+
 }

@@ -1,11 +1,14 @@
 package web.api.sistemareservas.model;
 
+import java.util.List;
+
 public class Cliente {
     private int codigo;
     private String nome;
     private String endereco;
     private String cpf;
-
+    private List<Reserva> reservas;
+    
     public Cliente() {
 
     }
@@ -47,6 +50,18 @@ public class Cliente {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    public Boolean adicionaReserva(Reserva reserva){
+        return this.reservas.add(reserva);
     }
 
 
