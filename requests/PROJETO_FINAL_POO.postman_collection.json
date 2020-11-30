@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0b6fbd62-bb3d-43ea-9c83-89f0b4e5b34a",
+		"_postman_id": "207950ea-bb00-47b5-af2b-e3fe1d6433a5",
 		"name": "PROJETO FINAL POO",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -240,6 +240,82 @@
 							"port": "8080",
 							"path": [
 								"veiculos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reservas",
+			"item": [
+				{
+					"name": "clientes/idcliente/veiculos/idveiculo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"dataInicio\": \"2020-04-01\",\r\n        \"dataFinal\": \"2020-04-01\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clientes/1/veiculos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"1",
+								"veiculos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reservas/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/reservas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"reservas",
 								"1"
 							]
 						}
