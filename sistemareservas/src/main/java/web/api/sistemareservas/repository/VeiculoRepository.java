@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
+import web.api.sistemareservas.model.Reserva;
 import web.api.sistemareservas.model.Veiculo;
 
 @Component
@@ -73,5 +74,10 @@ public class VeiculoRepository {
         
         return nVeiculo;
     }
+
+	public Boolean adicionaReservaOnVeiculo(int codigo, Reserva reserva) {
+        Veiculo veiculo = getVeiculoByCodigo(codigo).get();
+        return veiculo.adicionaReserva(reserva);
+	}
 
 }

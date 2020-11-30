@@ -49,20 +49,19 @@ public class ReservaService {
 
         //Tem um veiculo?
         Veiculo veiculo = veiculoService.getVeiculoByCodigo(codigoVeiculo);
-
-        //O veiculo se encontra reservado para o período informado (entre datas)?
-
+        
         Reserva reserva = new Reserva();
         reserva.setCliente(cliente);
         reserva.setVeiculo(veiculo);
         
         reserva.setDataInicio(dto.getDataInicio());
         reserva.setDataFinal(dto.getDataFinal());
+
+        //O veiculo se encontra reservado para o período informado (entre datas)?
         if(!verificaIntervaloDasDatas(reserva))
             return null;
 
         return reserva;
-
     }
 
     public Boolean verificaIntervaloDasDatas(Reserva reserva) {
@@ -117,7 +116,18 @@ public class ReservaService {
     }
 
     public Reserva adicionReserva(Reserva reserva){
-        return reservaRepository.adicionReserva(reserva);
+        
+        reserva = reservaRepository.adicionReserva(reserva);
+        
+        //Adicionando a reserva em Cliente
+        if( !(clienteService.adicionaReservaOnCliente(reserva.getCliente().getCodigo(), reserva)))
+            return null;
+
+        //Adicionando a reserva em Veiculo
+        if(!(veiculoService.adicionaReservaOnVeiculo(reserva.getVeiculo().getCodigo(),reserva)))
+            return null;
+
+        return reserva;
     }
 
     public Reserva atualizaReserva(ReservaDTO dto, int codigoReserva, int codigoCliente, int codigoVeiculo){
@@ -137,5 +147,4 @@ public class ReservaService {
         return reservaRepository.removeReserva(reserva);
         
     }
-
 }
