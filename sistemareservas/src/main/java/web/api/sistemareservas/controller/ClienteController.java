@@ -72,7 +72,7 @@ public class ClienteController {
     {
         var retorno = clienteService.removeClienteByCodigo(codigo);
         if(!retorno){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Esse cliente esta vinculado a uma reserva!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Esse cliente esta vinculado a uma reserva ativa!");
         }
         return ResponseEntity.noContent().build();
     }

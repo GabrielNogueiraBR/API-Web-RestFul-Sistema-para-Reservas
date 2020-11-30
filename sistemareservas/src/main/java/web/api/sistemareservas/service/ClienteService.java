@@ -1,5 +1,6 @@
 package web.api.sistemareservas.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +69,8 @@ public class ClienteService {
         
         var reservas = reservaService.getAllReservas();
         for(Reserva reserva : reservas){
-            if(reserva.getCliente() == cliente){
+            // Valida se o cliente possui alguma reserva ATIVA, ou seja, que ainda esteja dentro do prazo entre datas, caso contrario, podera ser excluido.
+            if(reserva.getCliente() == cliente && reserva.getDataFinal().isAfter(LocalDate.now())){
                 return false;
             }
         }

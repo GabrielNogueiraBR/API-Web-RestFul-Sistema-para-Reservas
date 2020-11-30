@@ -59,6 +59,7 @@ public class VeiculoService {
         List<Reserva> reservas = reservaService.getAllReservas();
 
         for (Reserva reserva : reservas) {
+            // Valida se o Veiculo possui alguma reserva ATIVA, ou seja, que ainda esteja dentro do prazo entre datas, caso contrario, podera ser excluido.
             if(reserva.getVeiculo() == veiculo && reserva.getDataFinal().isAfter(LocalDate.now())){
                 return false;
             }
