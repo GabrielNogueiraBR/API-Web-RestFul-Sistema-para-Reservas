@@ -1,5 +1,6 @@
 package web.api.sistemareservas.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import web.api.sistemareservas.dto.VeiculoDTO;
+import web.api.sistemareservas.model.Reserva;
 import web.api.sistemareservas.model.Veiculo;
 import web.api.sistemareservas.repository.VeiculoRepository;
 
@@ -17,6 +19,9 @@ public class VeiculoService {
     
     @Autowired
     private VeiculoRepository repository;
+
+    @Autowired
+    private ReservaService reservaService;
 
     public List<Veiculo> getAllVeiculos(){
         return repository.getAllVeiculos();
@@ -50,6 +55,14 @@ public class VeiculoService {
 
     public Boolean removeVeiculoByCodigo(int codigo){
         Veiculo veiculo = getVeiculoByCodigo(codigo);
+
+        List<Reserva> reservas = reservaService.getAllReservas();
+
+        for (Reserva reserva : reservas) {
+            if(reserva.getVeiculo() == veiculo && reserva.getDataFinal().isAfter(LocalDate.now())){
+                return false;
+            }
+        }
         return repository.removeVeiculo(veiculo);
     }
 

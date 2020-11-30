@@ -6,7 +6,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,9 +62,14 @@ public class VeiculoController {
     }
 
     @DeleteMapping("{codigo}")
-    public ResponseEntity<Void> remover(@PathVariable int codigo)
+    public ResponseEntity<String> remover(@PathVariable int codigo)
     {
-        veiculoService.removeVeiculoByCodigo(codigo);
+        var veiculo = veiculoService.removeVeiculoByCodigo(codigo);
+        
+        if(!veiculo){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Esse Veiculo esta vinculado a uma reserva ativa!");
+        }
+        
         return ResponseEntity.noContent().build();
     }
 
