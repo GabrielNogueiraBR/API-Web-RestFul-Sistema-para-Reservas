@@ -58,14 +58,14 @@ public class ReservaService {
         
         reserva.setDataInicio(dto.getDataInicio());
         reserva.setDataFinal(dto.getDataFinal());
-        if(!verificaIntervaloDasDatas(dto, reserva))
+        if(!verificaIntervaloDasDatas(reserva))
             return null;
 
         return reserva;
 
     }
 
-    public Boolean verificaIntervaloDasDatas(ReservaDTO dto, Reserva reserva) {
+    public Boolean verificaIntervaloDasDatas(Reserva reserva) {
         var reservas = getAllReservas();
         LocalDate dataInicialJaReservada;
         LocalDate dataFinalJaReservada;
@@ -73,7 +73,7 @@ public class ReservaService {
         LocalDate dataFinalReservaAtual;      
 
         for(Reserva reservaJaCadastrada : reservas){
-            if(reservaJaCadastrada.getVeiculo() == reserva.getVeiculo()){
+            if(reservaJaCadastrada.getVeiculo() == reserva.getVeiculo() && reservaJaCadastrada.getCodigo() != reserva.getCodigo()){
                 dataInicialJaReservada = reservaJaCadastrada.getDataInicio();
                 dataFinalJaReservada = reservaJaCadastrada.getDataFinal();
                 dataInicialReservaAtual = reserva.getDataInicio();
