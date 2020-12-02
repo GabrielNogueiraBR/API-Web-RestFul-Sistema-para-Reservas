@@ -79,11 +79,12 @@ public class ClienteController {
 
     @PostMapping("/{codigoCliente}/veiculos/{codigoVeiculo}")
     public ResponseEntity<String> salvarReserva(@Valid @RequestBody ReservaDTO dto, HttpServletRequest request, UriComponentsBuilder builder, @PathVariable int codigoCliente, @PathVariable int codigoVeiculo){
-
-        Reserva reserva = reservaService.fromDTO(dto, codigoCliente, codigoVeiculo);
         
-        if(reserva == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Esse periodo de data ja foi reservado para um outro cliente!");
+        Reserva reserva = reservaService.fromDTO(dto, codigoCliente, codigoVeiculo);
+        String retornoValidarData = reservaService.verificaIntervaloDasDatas(reserva);
+
+        if(retornoValidarData != "")
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(retornoValidarData);
 
         reserva = reservaService.adicionReserva(reserva);
         

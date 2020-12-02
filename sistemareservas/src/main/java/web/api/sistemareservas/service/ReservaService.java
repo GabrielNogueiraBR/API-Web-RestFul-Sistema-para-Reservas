@@ -58,45 +58,52 @@ public class ReservaService {
         reserva.setDataInicio(dto.getDataInicio());
         reserva.setDataFinal(dto.getDataFinal());
 
-        //O veiculo se encontra reservado para o período informado (entre datas)?
-        if(!verificaIntervaloDasDatas(reserva))
-            return null;
-
         return reserva;
     }
 
-    public Boolean verificaIntervaloDasDatas(Reserva reserva) {
+    public String verificaIntervaloDasDatas(Reserva reserva) {
         var reservas = getAllReservas();
         LocalDate dataInicialJaReservada;
         LocalDate dataFinalJaReservada;
-        LocalDate dataInicialReservaAtual;
-        LocalDate dataFinalReservaAtual;      
+        LocalDate dataInicialReservaAtual = reserva.getDataInicio();;
+        LocalDate dataFinalReservaAtual = reserva.getDataFinal();
+            
+        // - Verifica se a data inicial é igual a data final da reserva                                
+        if(dataInicialReservaAtual.isEqual(dataFinalReservaAtual)){
+            return "Erro: Data de entrega deve ser diferente da data inicial!";
+        }
 
         for(Reserva reservaJaCadastrada : reservas){
             if(reservaJaCadastrada.getVeiculo() == reserva.getVeiculo() && reservaJaCadastrada.getCodigo() != reserva.getCodigo()){
                 dataInicialJaReservada = reservaJaCadastrada.getDataInicio();
                 dataFinalJaReservada = reservaJaCadastrada.getDataFinal();
-                dataInicialReservaAtual = reserva.getDataInicio();
-                dataFinalReservaAtual = reserva.getDataFinal();            
-
+        
+                /**
+                 * - Verifica se a data inicial da reserva que vai ser cadastrada esta entre as datas
+                 * de reservas ja cadastradas. 
+                 */
                 if(dataInicialReservaAtual.isAfter(dataInicialJaReservada) 
-                    && dataInicialReservaAtual.isBefore(dataFinalJaReservada) 
-                    || dataInicialReservaAtual.isEqual(dataInicialJaReservada)
-                    || dataInicialReservaAtual.isEqual(dataFinalJaReservada))
+                   && dataInicialReservaAtual.isBefore(dataFinalJaReservada) 
+                   || dataInicialReservaAtual.isEqual(dataInicialJaReservada)
+                   || dataInicialReservaAtual.isEqual(dataFinalJaReservada))
                 {
-                    return false;
+                    return "Erro: Esse periodo de data ja foi reservado para um outro cliente!";
                 }
 
+                /**
+                 * - Verifica se a data final da reserva que vai ser cadastrada esta entre as datas
+                 * de reservas ja cadastradas. 
+                 */
                 if(dataFinalReservaAtual.isAfter(dataInicialJaReservada) 
-                    && dataFinalReservaAtual.isBefore(dataFinalJaReservada) 
-                    || dataFinalReservaAtual.isEqual(dataFinalJaReservada)
-                    || dataFinalReservaAtual.isEqual(dataInicialJaReservada))
+                   && dataFinalReservaAtual.isBefore(dataFinalJaReservada) 
+                   || dataFinalReservaAtual.isEqual(dataFinalJaReservada)
+                   || dataFinalReservaAtual.isEqual(dataInicialJaReservada))
                 {
-                    return false;                    
+                    return "Erro: Esse periodo de data ja foi reservado para um outro cliente!";                   
                 }
             }
         }
-        return true;
+        return "";
     }
 
     public ReservaDTO toDTO(Reserva reserva){

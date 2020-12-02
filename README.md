@@ -25,6 +25,4 @@ Desenvolva uma aplicação do tipo API Web RestFul que permita gerenciar reserva
 
 
 ## To do list
-    - Não remover Cliente se ele tiver reservas ativas
-    - Não remover Veiculos se ele tiver reservas ativas
-    - Não reservar um carro no período que ele já estiver reservado
+    - Deploy Heroku
