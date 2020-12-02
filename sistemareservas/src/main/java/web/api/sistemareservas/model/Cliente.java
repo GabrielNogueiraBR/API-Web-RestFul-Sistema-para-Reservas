@@ -1,5 +1,6 @@
 package web.api.sistemareservas.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
@@ -7,7 +8,7 @@ public class Cliente {
     private String nome;
     private String endereco;
     private String cpf;
-    private List<Reserva> reservas;
+    private List<Reserva> reservas = new ArrayList<Reserva>();
     
     public Cliente() {
 
@@ -63,6 +64,4 @@ public class Cliente {
     public Boolean adicionaReserva(Reserva reserva){
         return this.reservas.add(reserva);
     }
-
-
 }

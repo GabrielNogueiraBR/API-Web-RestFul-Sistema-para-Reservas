@@ -78,7 +78,7 @@ public class ClienteService {
     }
 
     public Boolean adicionaReservaOnCliente(int codigo, Reserva reserva){
-        return adicionaReservaOnCliente(codigo, reserva);
+        return repository.adicionaReservaOnCliente(codigo, reserva);
     }
 
 	public List<Reserva> getAllReservasByCodigoCliente(int codigo) {

@@ -1,6 +1,7 @@
 package web.api.sistemareservas.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -147,4 +148,15 @@ public class ReservaService {
         return reservaRepository.removeReserva(reserva);
         
     }
+
+	public List<ReservaDTO> toListDTO(List<Reserva> reservas) {
+        
+        List<ReservaDTO> dtoList = new ArrayList<ReservaDTO>();
+        
+        for (Reserva reserva : reservas) {
+            dtoList.add(toDTO(reserva));
+        }
+
+        return dtoList;
+	}
 }

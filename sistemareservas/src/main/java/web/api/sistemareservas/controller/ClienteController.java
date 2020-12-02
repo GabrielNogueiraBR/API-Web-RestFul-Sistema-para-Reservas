@@ -81,10 +81,15 @@ public class ClienteController {
     public ResponseEntity<String> salvarReserva(@Valid @RequestBody ReservaDTO dto, HttpServletRequest request, UriComponentsBuilder builder, @PathVariable int codigoCliente, @PathVariable int codigoVeiculo){
 
         Reserva reserva = reservaService.fromDTO(dto, codigoCliente, codigoVeiculo);
+        
         if(reserva == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Esse periodo de data ja foi reservado para um outro cliente!");
 
         reserva = reservaService.adicionReserva(reserva);
+        
+        if(reserva == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Ocorreu um erro ao cadastrar a reserva");
+        }
 
         UriComponents uriComponents = builder.path(request.getRequestURI() + "/" + reserva.getCodigo()).build();
         URI uri = uriComponents.toUri();
@@ -93,11 +98,8 @@ public class ClienteController {
     }
 
     @GetMapping("/{codigo}/reservas")
-    public List<Reserva> getAllReservasByCodigoCliente(@PathVariable int codigo){
-        
-        return clienteService.getAllReservasByCodigoCliente(codigo);
-
+    public List<ReservaDTO> getReservasCliente(@PathVariable int codigo){
+        Cliente cliente = clienteService.getClienteByCodigo(codigo);
+        return reservaService.toListDTO(cliente.getReservas());
     }
-
-
 }

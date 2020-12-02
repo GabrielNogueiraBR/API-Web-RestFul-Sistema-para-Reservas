@@ -1,12 +1,13 @@
 package web.api.sistemareservas.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Veiculo {
     private int codigo;
     private String modelo;
     private double valorDiaria;
-    private List<Reserva> reservas;
+    private List<Reserva> reservas = new ArrayList<Reserva>();
     
     public Veiculo() {
     }
