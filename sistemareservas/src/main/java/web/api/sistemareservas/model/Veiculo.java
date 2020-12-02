@@ -3,10 +3,14 @@ package web.api.sistemareservas.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Veiculo {
     private int codigo;
     private String modelo;
     private double valorDiaria;
+    
+    @JsonIgnore
     private List<Reserva> reservas = new ArrayList<Reserva>();
     
     public Veiculo() {

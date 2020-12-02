@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import web.api.sistemareservas.dto.ReservaDTO;
 import web.api.sistemareservas.model.Reserva;
 import web.api.sistemareservas.service.ReservaService;
 
@@ -20,8 +21,8 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @GetMapping
-    public List<Reserva> getAllReservas(){
-        return reservaService.getAllReservas();
+    public List<ReservaDTO> getAllReservas(){
+        return reservaService.toListDTO(reservaService.getAllReservas());
     }
 
     @GetMapping("/{codigo}")

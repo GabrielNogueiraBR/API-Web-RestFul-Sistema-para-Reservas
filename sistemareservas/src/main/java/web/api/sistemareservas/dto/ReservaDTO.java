@@ -16,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ReservaDTO {
 
+    private int codigo;
+    
     @NotNull
     @FutureOrPresent(message = "A data de início para a reserva deve ser a atual ou uma data futura.")
     private LocalDate dataInicio;
@@ -93,6 +95,14 @@ public class ReservaDTO {
         long dias = ChronoUnit.DAYS.between(dataInicio, dataFinal);
         Double total = veiculoDTO.getValorDiaria() * dias;
         return total;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
 }

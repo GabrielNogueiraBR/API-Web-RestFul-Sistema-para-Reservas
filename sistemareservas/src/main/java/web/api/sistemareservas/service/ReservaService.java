@@ -112,6 +112,8 @@ public class ReservaService {
         ClienteDTO clienteDTO = clienteService.toDTO(reserva.getCliente());
         dto.setClienteDTO(clienteDTO);
 
+        dto.setCodigo(reserva.getCodigo());
+        
         return dto;
 
     }
