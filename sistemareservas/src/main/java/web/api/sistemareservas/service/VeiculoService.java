@@ -1,6 +1,7 @@
 package web.api.sistemareservas.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import web.api.sistemareservas.dto.ReservaDTO;
 import web.api.sistemareservas.dto.VeiculoDTO;
 import web.api.sistemareservas.model.Reserva;
 import web.api.sistemareservas.model.Veiculo;
@@ -32,6 +34,22 @@ public class VeiculoService {
 
         return optional.orElseThrow( 
             ()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Veiculo nao cadastrado.") );
+
+    }
+
+    public ArrayList<ReservaDTO> getReservasDTOByCodigoVeiculo(Veiculo veiculo){
+        ReservaDTO reservaDTO;
+        ArrayList<ReservaDTO> dtoListReservas = new ArrayList<ReservaDTO>();
+        List<Reserva> reservas = reservaService.getAllReservas();
+        
+        for (Reserva reserva : reservas) {
+            // Valida se o Veiculo possui alguma reserva ATIVA, ou seja, que ainda esteja dentro do prazo entre datas, caso contrario, podera ser excluido.
+            if(reserva.getVeiculo() == veiculo){
+                reservaDTO = reservaService.toDTO(reserva);
+                dtoListReservas.add(reservaDTO);
+            }
+        }
+        return dtoListReservas;
 
     }
 

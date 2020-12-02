@@ -11,6 +11,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 public class ReservaDTO {
@@ -30,6 +31,7 @@ public class ReservaDTO {
      * Validação para verificar se o intervalo entre as datas é negativo ou não. Caso a data final seja antes da data de início, o valor retornado será negativo.
      * @return
      */
+    @JsonIgnore
     @AssertFalse(message = "A data final deve ser maior que a data de início. Digite uma data válida.")
     public boolean isDiferencaDatasNegativo(){
         var dias = Period.between(dataInicio, dataFinal).getDays();
@@ -42,11 +44,13 @@ public class ReservaDTO {
      * Validação para verificar se a data de inicio da reserva não é em um domingo.
      * @return
      */
+    @JsonIgnore
     @AssertFalse(message = "Erro! A data de inicio informada é em um domingo, por favor, informe outra data para realizar a reserva.")
     public boolean isDataInicioDomingo(){
         return(dataInicio.getDayOfWeek().equals(DayOfWeek.SUNDAY));
     }
 
+    @JsonIgnore
     @AssertFalse(message = "Erro! A data informada para realizar a entrega do veiculo é em um domingo, por favor informe outra data.")
     public boolean isDataFinalDomingo(){    
         return(dataFinal.getDayOfWeek().equals(DayOfWeek.SUNDAY));
@@ -86,7 +90,7 @@ public class ReservaDTO {
 
     @JsonGetter
     public Double totalReserva(){
-        long dias = ChronoUnit.DAYS.between(dataFinal, dataInicio);
+        long dias = ChronoUnit.DAYS.between(dataInicio, dataFinal);
         Double total = veiculoDTO.getValorDiaria() * dias;
         return total;
     }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import web.api.sistemareservas.dto.ReservaDTO;
 import web.api.sistemareservas.dto.VeiculoDTO;
 import web.api.sistemareservas.model.Veiculo;
 import web.api.sistemareservas.service.VeiculoService;
@@ -40,6 +41,12 @@ public class VeiculoController {
     public ResponseEntity<Veiculo> getVeiculoByCodigo(@PathVariable int codigo){
         Veiculo veiculo = veiculoService.getVeiculoByCodigo(codigo);
         return ResponseEntity.ok(veiculo);
+    }
+
+    @GetMapping("/{codigo}/reservas")
+    public ResponseEntity<List<ReservaDTO>> getReservasByCodigoVeiculo(@PathVariable int codigo){
+        Veiculo veiculo = veiculoService.getVeiculoByCodigo(codigo);        
+        return ResponseEntity.ok(veiculoService.getReservasDTOByCodigoVeiculo(veiculo));
     }
 
     @PostMapping()
