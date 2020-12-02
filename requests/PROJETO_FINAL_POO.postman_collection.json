@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "207950ea-bb00-47b5-af2b-e3fe1d6433a5",
+		"_postman_id": "c5c0e30d-3b7a-4eec-ae61-132185f7c93a",
 		"name": "PROJETO FINAL POO",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -54,7 +54,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"nome\": \"Raul Ryan\",\r\n        \"endereco\": \"Ipero\",\r\n        \"cpf\": \"43212312309\"\r\n    }",
+							"raw": "  \r\n    {\r\n        \"nome\": \"Raul Ryan\",\r\n        \"endereco\": \"Ipero\",\r\n        \"cpf\": \"43212312309\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -119,6 +119,27 @@
 							"path": [
 								"clientes",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clientes/id/reservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clientes/1/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"1",
+								"reservas"
 							]
 						}
 					},
@@ -245,6 +266,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "veiculos/id/reservas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/veiculos/1/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"veiculos",
+								"1",
+								"reservas"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -259,7 +301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"dataInicio\": \"2020-04-01\",\r\n        \"dataFinal\": \"2020-04-01\"\r\n    }",
+							"raw": "    {\r\n        \"dataInicio\": \"2020-12-01\",\r\n        \"dataFinal\": \"2020-12-10\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
