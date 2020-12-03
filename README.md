@@ -25,4 +25,4 @@ Desenvolva uma aplicação do tipo API Web RestFul que permita gerenciar reserva
 
 
 ## To do list
-    - Deploy Heroku
+    - DONE
