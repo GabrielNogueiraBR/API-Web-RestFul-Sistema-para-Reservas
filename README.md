@@ -24,5 +24,5 @@ Desenvolva uma aplicação do tipo API Web RestFul que permita gerenciar reserva
 1. Listar as reservas de um veículo
 
 
-## To do list
-    - DONE
+## Deploy no Heroky
+Link: https://projeto-api-restful-reservas.herokuapp.com
